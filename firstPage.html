@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+	<head>
+		<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+		<script src="lib/echarts.min.js"></script>
+	    <script src="lib/jquery-3.1.1.min.js"></script>
+   	    <script src="lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        <link rel="stylesheet" href="lib/jquery-ui-1.12.1.custom/jquery-ui.css">
+		<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="personalCSS.css">
+		<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<script>
+		var myDate = new Date();    
+		var y=myDate.getFullYear().toString();
+		var month=(myDate.getMonth()+1);
+		var m;
+		if(month<10)
+			m='0'+month.toString();
+		else
+			m=month.toString();
+		var d=(myDate.getDate()-1).toString();
+		var yesterday=y+m+d;
+		
+	    $(function(){
+		    $("#datepicker").datepicker({
+		        dateFormat:"yymmdd",
+		        showOtherMonths: true,
+		        selectOtherMonths: true,
+		        changeMonth: true,
+		     　 changeYear: true,
+			    todayBtn : "linked",  
+			    autoclose : true,  
+			    maxDate:yesterday
+		        });
+	    });
+	    
+	    </script>
+		<script src="./createCharts.js"></script>
+		<style>
+		body{
+			background-color: #333;
+			@font-face: {
+			color: #eee;
+			font-family: "Microsoft YaHei";
+			font-size: 12;
+			font-style: "normal";
+			font-weight: "normal"
+			},
+	}
+	    ul.nav-tabs{
+	        width: 140px;
+	        margin-top: 20px;
+	        border-radius: 4px;
+	        border: 1px solid #ddd;
+	        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.067);
+	    }
+	    ul.nav-tabs li{
+	        margin: 0;
+	        border-top: 1px solid #ddd;
+	    }
+	    ul.nav-tabs li:first-child{
+	        border-top: none;
+	    }
+	    ul.nav-tabs li a{
+	    	color: #eee;
+	        margin: 0;
+	        padding: 8px 16px;
+	        border-radius: 0;
+	    }
+	    ul.nav-tabs li.active a, ul.nav-tabs li.active a:hover{
+	        color: #fff;
+	        background: #555;
+	        border: 1px solid #555;
+	    }
+	    ul.nav-tabs li:first-child a{
+	        border-radius: 4px 4px 0 0;
+	    }
+	    ul.nav-tabs li:last-child a{
+	        border-radius: 0 0 4px 4px;
+	    }
+	    ul.nav-tabs.affix{
+	        top: 30px; /* Set the top position of pinned element */
+	    }
+	</style>
+	</head>
+	<body data-spy="scroll" data-target="#myScrollspy" >
+		
+		<div calss="container" style="padding:80px">
+			<div calss="row">
+				<h2 style="padding-left:30px;color:#eee">Heraid日志分析</h2>
+			</div>
+			<nav class="navbar navbar-default navbar-inverse" role="navigation" >
+				<div class="container-fluid">
+<!-- 					<div class="navbar-header">
+				        <a class="navbar-brand" href="#">主页</a>
+				    </div> -->
+				    <div>
+				        <form class="navbar-form navbar-right" >
+				            <div class="form-group">
+				                <input type="text" id="datepicker" size="30" class="form-control" >
+				            </div>
+				            <button id="choosedate" type="button" onclick=adddate() class="btn btn-info navbar-btn">确定</button>
+				        </form>
+				    </div>
+				</div>
+			</nav>
+		<script type="text/javascript">
+			defaultdate();
+			$("input").attr("value",yesterday);
+		</script>
+		<div class="col-md-1" id="myScrollspy">
+            <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+                <li class="active"><a href="#hour">每小时访问量</a></li>
+                <li><a href="#API">api调用量</a></li>
+                <li><a href="#ios_version">ios版本用户量</a></li>
+                <li><a href="#android_version">Device</a></li>
+                
+            </ul>
+        </div>
+        <div class="col-md-8">
+			<div id="hour" style="padding-top:20px;width:1200px;height:700px;"></div>
+    		<div id="API" style="padding-top:20px;width:1200px;height:700px;"></div>
+    		<div id="ios_version" style="padding-top:20px;width:1200px;height:700px;"></div>
+    		<div id="android_version" style="padding-top:20px;width:1200px;height:700px;"></div>
+    		<script type="text/javascript" src="./createCharts.js"></script>
+		</div>
+
+		<p id="back-to-top"><a href="#top"><span></span></a></p>
+		<script type="text/javascript">
+		$(document).ready(function(){
+		 //首先将#back-to-top隐藏
+		 $("#back-to-top").hide();
+		 //当滚动条的位置处于距顶部600像素以下时，跳转链接出现，否则消失
+		 $(function () {
+		  $(window).scroll(function(){
+		   if ($(window).scrollTop()>250){
+		    $("#back-to-top").fadeIn(500);
+		   }else{
+		    $("#back-to-top").fadeOut(500);
+		   }
+		 });
+		 //当点击跳转链接后，回到页面顶部位置
+		 $("#back-to-top").click(function(){
+		  $('body,html').animate({scrollTop:0},500);
+		   return false;
+		  });
+		 });
+		});
+		</script>
+
+	</div>
+	</body>
+</html>
